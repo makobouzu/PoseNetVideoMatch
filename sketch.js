@@ -1,7 +1,7 @@
 let net; //posenet格納
-let videoDom; //videoのDom
+let video_dom; //videoのDom
 let urls = ["https://tin-purrfect-charger.glitch.me", "https://psychedelic-actually-skateboard.glitch.me/"]; //取得したいdatasetのurl
-let dataArray = []; //読み込んだ全てのデータの格納
+let data_array = []; //読み込んだ全てのデータの格納
 let buf_img_src = "https://cdn.glitch.com/b9d42820-c542-4603-aef1-310da7221bbd%2F2020-05-11_15.48.18.png";  //初期画像
 
 function setup(){
@@ -18,7 +18,7 @@ async function draw(){
   image(video, 0, 0, width, height);
   pop();
 
-  let video_poses = await getPose(videoDom);　//videoのポーズ推定
+  let video_poses = await getPose(video_dom);　//videoのポーズ推定
   drawKeypoints(video_poses);  //ポーズの描画
   drawSkeleton(video_poses)
   let match = await matchData(video_poses);　//データセットとのマッチング
@@ -41,13 +41,13 @@ async function init(){
   }
   for(let i = 0; i < datasets.length; i++){  // datasetの整形
     for(let j = 0; j < datasets[i].imgInfo.length; j++){
-      dataArray.push(datasets[i].imgInfo[j]);
+      data_array.push(datasets[i].imgInfo[j]);
     }
   }
-  console.log("loaded dataset!", dataArray);
+  console.log("loaded dataset!", data_array);
 
   console.log("preloading all images...");
-  let dataURL = dataArray.map((obj) => obj.meta.url);
+  let dataURL = data_array.map((obj) => obj.meta.url);
   let res3 = await loadImagesrc(dataURL);
   console.log("preloaded all images!");
 
@@ -55,7 +55,7 @@ async function init(){
   video = createCapture(VIDEO, function(){
     video.size(width, height);
     video.id("camera");
-    videoDom = document.getElementById("camera");
+    video_dom = document.getElementById("camera");
     video.hide();
     console.log("loaded webcam video!");
     frameRate(60);
@@ -87,15 +87,15 @@ async function matchData(_video_poses){
   let buf_num = 0;
   let buf_score = 1;
 
-  for(let i = 0; i < dataArray.length; i++){ //類似度の計算
-   let score = pns.poseSimilarity(_video_poses, dataArray[i].pose);
+  for(let i = 0; i < data_array.length; i++){ //類似度の計算
+   let score = pns.poseSimilarity(_video_poses, data_array[i].pose);
     if(score < buf_score){
       buf_score = score;
       buf_num = i;
     }
   }
   let score = buf_score ;
-  let img_src = dataArray[buf_num].meta.url
+  let img_src = data_array[buf_num].meta.url
 
   // 類似度と画像の表示
   document.getElementById("score").innerText = "類似度: "+ score.toFixed(4);
@@ -109,10 +109,10 @@ async function matchData(_video_poses){
 }
 
 /* draw functions  -----------------------------*/
-function drawKeypoints(video_poses){
-  if(video_poses != null){
-    for (let i = 0; i < video_poses.keypoints.length; i++) {
-      let keypoint = video_poses.keypoints[i];
+function drawKeypoints(_video_poses){
+  if(_video_poses != null){
+    for (let i = 0; i < _video_poses.keypoints.length; i++) {
+      let keypoint = _video_poses.keypoints[i];
       fill(255, 0, 0);
       ellipse(width - keypoint.position.x, keypoint.position.y, 10, 10);
     }
