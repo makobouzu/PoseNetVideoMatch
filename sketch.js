@@ -63,6 +63,7 @@ async function init(){
 }
 
 async function loadImagesrc(_dataURL, _buf_img_src) {
+  //buffer img
   let buf = document.createElement("img");
   buf.setAttribute("height", height);
   buf.setAttribute("id", _buf_img_src);
