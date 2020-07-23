@@ -1,8 +1,8 @@
 let net; //posenet格納
 let video_dom; //videoのDom
-let urls = ["https://tin-purrfect-charger.glitch.me", "https://psychedelic-actually-skateboard.glitch.me/"]; //取得したいdatasetのurl
-let data_array = []; //読み込んだ全てのデータの格納
-let buf_img_src = "https://cdn.glitch.com/b9d42820-c542-4603-aef1-310da7221bbd%2F2020-05-11_15.48.18.png";  //初期画像
+let urls        = ["https://posenet-creat-dataset.glitch.me"]; //取得したいdatasetのurl //"https://tin-purrfect-charger.glitch.me", 
+let data_array  = []; //読み込んだ全てのデータの格納
+let buf_img_src = "https://cdn.glitch.com/a8e2e855-9ef6-450b-9a09-e14428036ac7%2FIMG_3426.JPG?v=1595161835327";  //初期画像
 
 function setup(){
   createCanvas(640, 480);
@@ -11,17 +11,16 @@ function setup(){
 }
 
 async function draw(){
+  let video_poses = await getPose(video_dom);　//videoのポーズ推定
+  let match = await matchData(video_poses);　//データセットとのマッチング
   // videoを反転して鏡にする
   push();
   translate(width,0);
   scale(-1, 1);
   image(video, 0, 0, width, height);
-  pop();
-
-  let video_poses = await getPose(video_dom);　//videoのポーズ推定
   drawKeypoints(video_poses);  //ポーズの描画
-  drawSkeleton(video_poses)
-  let match = await matchData(video_poses);　//データセットとのマッチング
+  drawSkeleton(video_poses);
+  pop();
 }
 
 /* initialize functions -----------------------------*/
@@ -48,7 +47,7 @@ async function init(){
 
   console.log("preloading all images...");
   let dataURL = data_array.map((obj) => obj.meta.url);
-  let res3 = await loadImagesrc(dataURL);
+  let res3 = await loadImagesrc(dataURL, buf_img_src);
   console.log("preloaded all images!");
 
   console.log("loading webcam video");
@@ -63,7 +62,15 @@ async function init(){
   });
 }
 
-async function loadImagesrc(_dataURL) {
+async function loadImagesrc(_dataURL, _buf_img_src) {
+  let buf = document.createElement("img");
+  buf.setAttribute("height", height);
+  buf.setAttribute("id", _buf_img_src);
+  buf.setAttribute("src", _buf_img_src);
+  buf.setAttribute("style", "display:none;");
+  buf.setAttribute("crossorigin", "anonymous");
+  document.body.appendChild(buf);
+  
   for(let i = 0; i < _dataURL.length; i++){
     let img = document.createElement("img");
     img.setAttribute("height", height);
@@ -98,13 +105,12 @@ async function matchData(_video_poses){
   let img_src = data_array[buf_num].meta.url
 
   // 類似度と画像の表示
-  document.getElementById("score").innerText = "類似度: "+ score.toFixed(4);
+  document.getElementById("score").innerText = "類似度: " + score.toFixed(4);
   if(img_src != buf_img_src){
     document.getElementById(buf_img_src).setAttribute("style", "display:none;");
     document.getElementById(img_src).setAttribute("style", "display:block;");
     buf_img_src = img_src;
   }
-
   return {score: score, img_src: img_src};
 }
 
@@ -114,7 +120,7 @@ function drawKeypoints(_video_poses){
     for (let i = 0; i < _video_poses.keypoints.length; i++) {
       let keypoint = _video_poses.keypoints[i];
       fill(255, 0, 0);
-      ellipse(width - keypoint.position.x, keypoint.position.y, 10, 10);
+      ellipse(keypoint.position.x, keypoint.position.y, 10, 10);
     }
   }
 }
@@ -125,8 +131,9 @@ function drawSkeleton(_video_poses) {
     for(let i = 0; i < adjacentKeyPoints.length; i++){
       const A = adjacentKeyPoints[i][0];
       const B = adjacentKeyPoints[i][1];
+      strokeWeight(2);
       stroke(255, 0, 0);
-      line(width - A.position.x, A.position.y, width - B.position.x, B.position.y);
+      line(A.position.x, A.position.y, B.position.x, B.position.y);
     }
   }
 }
