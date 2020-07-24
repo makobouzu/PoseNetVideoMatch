@@ -1,6 +1,6 @@
-let net; //posenet格納
+let net;       //posenet格納
 let video_dom; //videoのDom
-let urls        = ["https://posenet-creat-dataset.glitch.me"]; //取得したいdatasetのurl //"https://tin-purrfect-charger.glitch.me", 
+let urls        = ["https://posenet-creat-dataset.glitch.me"]; //取得したいdatasetのurl
 let data_array  = []; //読み込んだ全てのデータの格納
 let buf_img_src = "https://cdn.glitch.com/a8e2e855-9ef6-450b-9a09-e14428036ac7%2FIMG_3426.JPG?v=1595161835327";  //初期画像
 
@@ -106,7 +106,7 @@ async function matchData(_video_poses){
   let img_src = data_array[buf_num].meta.url
 
   // 類似度と画像の表示
-  document.getElementById("score").innerText = "類似度: " + score.toFixed(4);
+  document.getElementById("score").innerText = "類似率: " + ((1-score)*100).toFixed(2) + " %";
   if(img_src != buf_img_src){
     document.getElementById(buf_img_src).setAttribute("style", "display:none;");
     document.getElementById(img_src).setAttribute("style", "display:block;");
