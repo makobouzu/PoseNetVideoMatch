@@ -10,3 +10,6 @@
 {"name":"pose1.jpg","date":"2020-07-17T11:13:12.290Z","url":"https://cdn.glitch.com/983cc2b0-4221-4c26-bfdc-5bfddbfedf68%2Fpose1.jpg","type":"image/jpeg","size":348189,"imageWidth":1108,"imageHeight":1478,"thumbnail":"https://cdn.glitch.com/983cc2b0-4221-4c26-bfdc-5bfddbfedf68%2Fthumbnails%2Fpose1.jpg","thumbnailWidth":248,"thumbnailHeight":330,"uuid":"qkWQz0gp58fphFK1"}
 {"name":"pose2.jpg","date":"2020-07-17T11:33:05.619Z","url":"https://cdn.glitch.com/983cc2b0-4221-4c26-bfdc-5bfddbfedf68%2Fpose2.jpg","type":"image/jpeg","size":309523,"imageWidth":1108,"imageHeight":1478,"thumbnail":"https://cdn.glitch.com/983cc2b0-4221-4c26-bfdc-5bfddbfedf68%2Fthumbnails%2Fpose2.jpg","thumbnailWidth":248,"thumbnailHeight":330,"uuid":"SVOj8YPMwksKhb16"}
 {"name":"pose3.jpg","date":"2020-07-17T11:36:42.284Z","url":"https://cdn.glitch.com/983cc2b0-4221-4c26-bfdc-5bfddbfedf68%2Fpose3.jpg","type":"image/jpeg","size":349648,"imageWidth":960,"imageHeight":1706,"thumbnail":"https://cdn.glitch.com/983cc2b0-4221-4c26-bfdc-5bfddbfedf68%2Fthumbnails%2Fpose3.jpg","thumbnailWidth":186,"thumbnailHeight":330,"uuid":"R3XsYn4sBhHXrx9s"}
+{"uuid":"qkWQz0gp58fphFK1","deleted":true}
+{"uuid":"SVOj8YPMwksKhb16","deleted":true}
+{"uuid":"R3XsYn4sBhHXrx9s","deleted":true}

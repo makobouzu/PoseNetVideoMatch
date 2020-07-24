@@ -1,6 +1,6 @@
 let net;       //posenet格納
 let video_dom; //videoのDom
-let urls        = ["https://posenet-creat-dataset.glitch.me"]; //取得したいdatasetのurl
+let urls        = ["https://posenet-create-dataset.glitch.me"]; //取得したいdatasetのurl
 let data_array  = []; //読み込んだ全てのデータの格納
 let buf_img_src = "https://cdn.glitch.com/a8e2e855-9ef6-450b-9a09-e14428036ac7%2FIMG_3426.JPG?v=1595161835327";  //初期画像
 
